@@ -1639,7 +1639,7 @@ PrefabInstance:
       objectReference: {fileID: 1880931789}
     - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: moveModel.hspeed
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: grappleModel.point
@@ -1647,11 +1647,11 @@ PrefabInstance:
       objectReference: {fileID: 1880931789}
     - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: dashModel.dashSpeed
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: jumpModel.jumpSpeed
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: grappleModel.GrappleSensor
@@ -1671,7 +1671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8173018379730092807, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.51
+      value: -4.58
       objectReference: {fileID: 0}
     - target: {fileID: 8173018379730092807, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4317,7 +4317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814756015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.51, y: -1.113, z: -10}
+  m_LocalPosition: {x: -4.58, y: -1.113, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8253,7 +8253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634947413}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.51, y: -1.113, z: -10}
+  m_LocalPosition: {x: -4.58, y: -1.113, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
