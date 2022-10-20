@@ -1638,13 +1638,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1880931789}
     - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
+      propertyPath: moveModel.hspeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: grappleModel.point
       value: 
       objectReference: {fileID: 1880931789}
     - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
+      propertyPath: dashModel.dashSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
+      propertyPath: jumpModel.jumpSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: grappleModel.GrappleSensor
       value: 
       objectReference: {fileID: 285372218}
+    - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
+      propertyPath: grappleModel.grappleJumpSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173018379730092806, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
+      propertyPath: slideModel.slideJumpHorizontalSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8173018379730092807, guid: 92de2b97c3000d645b5c85957c2791af, type: 3}
       propertyPath: m_RootOrder
       value: 1
