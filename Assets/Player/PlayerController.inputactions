@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Quit",
-                    "type": "Button",
-                    "id": "102845d7-d6ae-4b2a-b1e7-5b7b078a6aaa",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Grapple",
                     "type": "Button",
                     "id": "025a2739-dff9-40cd-b7e3-035dcaafb98f",
@@ -66,7 +57,7 @@
                 {
                     "name": "up",
                     "id": "cc7e821a-d340-47a5-aaef-e84217c0781d",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -77,7 +68,7 @@
                 {
                     "name": "down",
                     "id": "eec4c67f-fd60-4483-8ec0-6ebca17b4300",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -88,7 +79,7 @@
                 {
                     "name": "left",
                     "id": "89684169-933f-4962-96c4-d3fad784fcc0",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -99,7 +90,7 @@
                 {
                     "name": "right",
                     "id": "0ba5763d-b74c-4819-9c75-ba36d52504f5",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -220,7 +211,7 @@
                 {
                     "name": "",
                     "id": "41637b3f-3999-462b-a044-fbdd52ddbdcf",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -242,7 +233,7 @@
                 {
                     "name": "",
                     "id": "063501f2-4d76-4231-9e2a-91887d6ed7d9",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -263,30 +254,8 @@
                 },
                 {
                     "name": "",
-                    "id": "78565c92-d9de-4279-93a2-e77a8f1ff930",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Quit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ff9866a2-307f-4b98-a229-a9b734b9e80f",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "xbox",
-                    "action": "Quit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "62edcede-4c92-4bcf-bde9-641e22c96251",
-                    "path": "<Keyboard>/l",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
