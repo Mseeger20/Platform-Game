@@ -14,6 +14,8 @@ TagManager:
   - Head
   - charaVoiceOverAudioSource
   - Platform
+  - Spike
+  - Conveyor
   layers:
   - Default
   - TransparentFX
