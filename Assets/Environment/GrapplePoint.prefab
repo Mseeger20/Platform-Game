@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3726901965871229121}
   - component: {fileID: 1937475893484095526}
   - component: {fileID: 3432854060849525761}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: GrapplePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6370866369429630595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.4318, y: 8.373999, z: 0}
-  m_LocalScale: {x: 0.1484, y: 0.1484, z: 1}
+  m_LocalScale: {x: 0.4323411, y: 0.4323411, z: 2.9133499}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
