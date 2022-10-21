@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
         dash,
         slide,
         wallJump,
-        attack,
         grapple,
     }
     public state statevisualizer;
@@ -211,9 +210,11 @@ public class PlayerController : MonoBehaviour
         if (hitJump.collider != null)
         {
             jumpModel.isGrounded = true;
-            if (hitJump.collider.CompareTag("Platform")) jumpModel.isPlatform = true;
+            if (hitJump.collider.CompareTag("Platform"))
+                jumpModel.isPlatform = true;
             dashModel.allowDash = true;
-            if(playerRB.gravityScale != slideModel.normalGravity) playerRB.gravityScale = slideModel.normalGravity;
+            if(playerRB.gravityScale != slideModel.normalGravity)
+                playerRB.gravityScale = slideModel.normalGravity;
             if (playerRB.velocity.y < 0f && generalState != dashState && generalState != moveState && generalState != grappleState)
             { 
                 ChangeState(moveState);
