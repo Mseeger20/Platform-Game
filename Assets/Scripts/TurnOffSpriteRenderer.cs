@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TurnOffSpriteRenderer : MonoBehaviour
 {
-    public SpriteRenderer x;
+    SpriteRenderer x;
 
     private void Awake()
     {
+        x = this.GetComponent<SpriteRenderer>();
         x.enabled = false;
     }
 }
