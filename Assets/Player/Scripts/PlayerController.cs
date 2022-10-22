@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Diagnostics;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -47,6 +49,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slideAllowHitDis = 1f;
     /*[SerializeField] */
 
+    public Conveyor conveyor = null;
+
+    GameObject spawn;
+    bool teleport = true;
+    float defaultspeed;
+
+    Stopwatch stopwatch;
+    int deaths = 0;
+    string timetotext;
+
     public void ChangeState(PlayerState newState)
     {
         if (generalState != null)
@@ -64,6 +76,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         statevisualizer = state.move;
+        spawn = GameObject.Find("Spawn");
+        defaultspeed = this.moveModel.hspeed;
+
+        stopwatch = new Stopwatch();
+        stopwatch.Start();
 
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
@@ -76,7 +93,6 @@ public class PlayerController : MonoBehaviour
         groundHash = Animator.StringToHash("isGrounded");
         extraJumpTriggerHash = Animator.StringToHash("ExJumpTrigger");
         jumpVelHash = Animator.StringToHash("jumpVelocity");
-
 
         groundMask = LayerMask.GetMask("Ground");
         ChangeState(moveState);
@@ -103,11 +119,6 @@ public class PlayerController : MonoBehaviour
 
         //Timers
         if (slideModel.slidingCancelTimer >= 0) slideModel.slidingCancelTimer -= Time.deltaTime;
-    }
-
-    void FixedUpdate()
-    {
-         generalState.FixedUpdate(this);
     }
 
     void OnMove(InputValue input)
@@ -260,5 +271,58 @@ public class PlayerController : MonoBehaviour
         point.SetActive(false);
         yield return new WaitForSecondsRealtime(grappleModel.grapplePointExcludeCD);
         point.SetActive(true);
+    }
+
+    void FixedUpdate()
+    {
+        generalState.FixedUpdate(this);
+
+        if (teleport)
+        {
+            gameObject.transform.position = spawn.transform.position;
+            moveModel.hspeed = 0;
+            playerRB.velocity = new Vector2(0, 0);
+            teleport = false;
+            ChangeState(moveState);
+            StartCoroutine(Delay());
+        }
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(0.7f);
+        moveModel.hspeed = defaultspeed;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Conveyor"))
+        {
+            conveyor = collision.gameObject.GetComponent<Conveyor>();
+        }
+
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            teleport = true;
+            deaths++;
+        }
+
+        if (collision.gameObject.CompareTag("End"))
+        {
+            UnityEngine.Debug.Log("reached the end");
+            stopwatch.Stop();
+            TimeSpan x = stopwatch.Elapsed;
+            string part = x.Seconds < 10 ? $"0{x.Seconds}" : $"{x.Seconds}";
+            timetotext = $"{x.Minutes}:" + part + $".{x.Milliseconds}";
+        }
+
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Conveyor"))
+        {
+            conveyor = null;
+        }
     }
 }
