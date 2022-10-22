@@ -45,7 +45,6 @@ public class PlayerMoveState : PlayerState
         {
             pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed + pl.conveyor.speed, pl.playerRB.velocity.y);
         }
-        Debug.Log(pl.playerRB.velocity);
     }
     public override void ExitState(PlayerController pl)
     {
