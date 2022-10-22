@@ -17,6 +17,7 @@ public class PlayerMoveState : PlayerState
     {
         pl.statevisualizer = PlayerController.state.move;
         pl.jumpModel.jumpCount = pl.jumpModel.jumpCountMax;
+        pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed, pl.playerRB.velocity.y);
     }
     public override void Update(PlayerController pl)
     {
@@ -96,7 +97,24 @@ public class PlayerDashState : PlayerState
     }
     public override void FixedUpdate(PlayerController pl)
     {
-        pl.playerRB.velocity = new Vector2(pl.dashModel.dashSpeed, 0) * (int)pl.moveModel.Direction;
+        if (pl.conveyor == null)
+            pl.playerRB.velocity = new Vector2(pl.dashModel.dashSpeed, 0) * (int)pl.moveModel.Direction;
+        else if (pl.conveyor.going == Conveyor.Direction.left && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Left)
+        {
+            pl.playerRB.velocity = new Vector2(-1*pl.dashModel.dashSpeed - pl.conveyor.speed, pl.playerRB.velocity.y);
+        }
+        else if (pl.conveyor.going == Conveyor.Direction.left && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Right)
+        {
+            pl.playerRB.velocity = new Vector2(pl.dashModel.dashSpeed - pl.conveyor.speed, pl.playerRB.velocity.y);
+        }
+        else if (pl.conveyor.going == Conveyor.Direction.right && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Right)
+        {
+            pl.playerRB.velocity = new Vector2(pl.dashModel.dashSpeed + pl.conveyor.speed, pl.playerRB.velocity.y);
+        }
+        else if (pl.conveyor.going == Conveyor.Direction.right && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Left)
+        {
+            pl.playerRB.velocity = new Vector2(-1*pl.dashModel.dashSpeed + pl.conveyor.speed, pl.playerRB.velocity.y);
+        }
     }
     public override void ExitState(PlayerController pl)
     {
@@ -126,7 +144,12 @@ public class PlayerSlidingState : PlayerState
     }
     public override void FixedUpdate(PlayerController pl)
     {
-
+        if (pl.conveyor == null || pl.conveyor.going == Conveyor.Direction.right || pl.conveyor.going == Conveyor.Direction.left)
+            pl.playerRB.gravityScale = pl.slideModel.slideGravity;
+        else if (pl.conveyor.going == Conveyor.Direction.up)
+            pl.playerRB.gravityScale = pl.slideModel.slideGravity - pl.conveyor.speed;
+        else if (pl.conveyor.going == Conveyor.Direction.down)
+            pl.playerRB.gravityScale = pl.slideModel.slideGravity + pl.conveyor.speed;
     }
     public override void ExitState(PlayerController pl)
     {
