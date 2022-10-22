@@ -24,27 +24,7 @@ public class PlayerMoveState : PlayerState
     }
     public override void FixedUpdate(PlayerController pl)
     {
-        if (pl.conveyor == null)
-        {
-            pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed, pl.playerRB.velocity.y);
-        }
-        else if (pl.conveyor.going == Conveyor.Direction.left && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Left)
-        {
-            pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed - pl.conveyor.speed, pl.playerRB.velocity.y);
-        }
-        else if (pl.conveyor.going == Conveyor.Direction.left && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Right)
-        {
-            pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed - pl.conveyor.speed, pl.playerRB.velocity.y);
-        }
-        else if (pl.conveyor.going == Conveyor.Direction.right && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Right)
-        {
-            pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed + pl.conveyor.speed, pl.playerRB.velocity.y);
-        }
-        else if (pl.conveyor.going == Conveyor.Direction.right && pl.moveModel.Direction == PlayerMoveModel.PlayerDirection.Left)
-        {
-            pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed + pl.conveyor.speed, pl.playerRB.velocity.y);
-        }
-        Debug.Log(pl.playerRB.velocity);
+        pl.playerRB.velocity = new Vector2(pl.moveModel.HorizontalMovement * pl.moveModel.hspeed, pl.playerRB.velocity.y);
     }
     public override void ExitState(PlayerController pl)
     {
