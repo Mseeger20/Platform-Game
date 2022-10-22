@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slideAllowHitDis = 1f;
     /*[SerializeField] */
 
+    public Conveyor conveyor = null;
+
     public void ChangeState(PlayerState newState)
     {
         if (generalState != null)
@@ -260,5 +262,21 @@ public class PlayerController : MonoBehaviour
         point.SetActive(false);
         yield return new WaitForSecondsRealtime(grappleModel.grapplePointExcludeCD);
         point.SetActive(true);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Conveyor"))
+        {
+            conveyor = collision.gameObject.GetComponent<Conveyor>();
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Conveyor"))
+        {
+            conveyor = null;
+        }
     }
 }
