@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    public GameObject spawn;
-    public PlayerController pc;
+    GameObject spawn;
+    PlayerController pc;
     public bool teleport;
     void Start()
     {
+        spawn = GameObject.Find("Spawn");
         pc = gameObject.GetComponent<PlayerController>();
         teleport = false;
     }
