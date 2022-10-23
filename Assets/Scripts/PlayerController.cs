@@ -307,6 +307,12 @@ public class PlayerController : MonoBehaviour
             deaths++;
         }
 
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            UnityEngine.Debug.Log("reached a checkpoint");
+            spawn.transform.position = collision.transform.position;
+        }
+
         if (collision.gameObject.CompareTag("End"))
         {
             UnityEngine.Debug.Log("reached the end");
