@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2081941396310050110}
   - component: {fileID: 3350531791061280066}
   m_Layer: 0
-  m_Name: Checkpoint 1
+  m_Name: Checkpoint
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,10 +94,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000029802322, y: -0.5308018}
+  m_Offset: {x: -0.000000029802322, y: -0.03993848}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -108,5 +108,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9789402, y: 0.07994628}
+  m_Size: {x: 0.9789402, y: 1.0616729}
   m_EdgeRadius: 0

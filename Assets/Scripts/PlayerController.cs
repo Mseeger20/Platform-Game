@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     public Conveyor conveyor = null;
 
-    GameObject spawn;
+    public GameObject spawn;
     bool teleport = true;
     float defaultspeed;
 
@@ -305,12 +305,6 @@ public class PlayerController : MonoBehaviour
         {
             teleport = true;
             deaths++;
-        }
-
-        if (collision.gameObject.CompareTag("Checkpoint"))
-        {
-            UnityEngine.Debug.Log("reached a checkpoint");
-            spawn.transform.position = collision.transform.position;
         }
 
         if (collision.gameObject.CompareTag("End"))
