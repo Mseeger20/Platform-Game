@@ -97,7 +97,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 121}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 52
+  controlID: 12572
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 113
+  controlID: 111
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 88
+  controlID: 51
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 89
+  controlID: 52
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,8 +317,8 @@ MonoBehaviour:
     y: 0
     width: 370.5
     height: 760
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -495,7 +495,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Shapes
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -509,7 +509,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 60090000
     m_LastClickedID: 2400
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 00000000e8750000ea750000ec750000ee750000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -534,21 +534,21 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 76.00037}
+    scrollPos: {x: 0, y: 10.999329}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffffd6dc000012dd000014dd0000c4e80000
+    m_ExpandedIDs: ffffffff00000000e8750000ea750000ec750000d2770000d6770000de7700002282000064cf0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Shapes
-      m_OriginalName: Shapes
+      m_Name: Checkpoint
+      m_OriginalName: Checkpoint
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 59588
+      m_UserData: 43730
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -943,9 +943,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.7102675, y: 8.368404, z: 0.17801519}
+    m_Target: {x: 44.87001, y: 37.52063, z: -0.5975078}
     speed: 2
-    m_Value: {x: 6.753172, y: 8.361672, z: 0.1774369}
+    m_Value: {x: 44.969193, y: 37.416245, z: -0.59518915}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -994,18 +994,18 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
+    m_Value: {x: -0, y: 0, z: -0, w: -1}
   m_Size:
-    m_Target: 10.957029
+    m_Target: 51.756973
     speed: 2
-    m_Value: 11.014857
+    m_Value: 51.525112
   m_Ortho:
     m_Target: 1
     speed: 2
     m_Value: 1
   m_CameraSettings:
-    m_Speed: 0.864568
-    m_SpeedNormalized: 0.432
+    m_Speed: 0.09195455
+    m_SpeedNormalized: 0.045500025
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1016,7 +1016,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewRotation: {x: -0.051051717, y: 0.94886976, z: -0.22648962, w: -0.2138792}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -1054,9 +1054,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 3a9fffffd2a0ffff48a2ffff3ee00000
+      m_SelectedIDs: d2f30000
+      m_LastClickedID: 62418
+      m_ExpandedIDs: b004ffff9606fffffa07fffff40bffff960fffffe412ffff761affff4221ffffbe35ffff5837ffff6041ffffae44ffffd86dffffee6efffff86ffffff070ffff4271ffffe271ffff4673ffff2487ffff2e8fffff88a7ffffcaa8fffffeafffff2ab6ffff04baffff4ce6fffffce9ffff16fbfffff4ffffff08830000c6830000f4830000deae0000bac50000e2c50000b0c6000032dd0000baee000082f2000086f20000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

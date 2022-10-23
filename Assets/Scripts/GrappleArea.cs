@@ -57,13 +57,19 @@ public class GrappleArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        possiblePoints.Add(collision.gameObject);
-        closestPoint();
+        if (collision.gameObject.layer == 9) //layer 9: GrapplePoint
+        {
+            possiblePoints.Add(collision.gameObject);
+            closestPoint();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        possiblePoints.Remove(collision.gameObject);
-        closestPoint();
+        if (collision.gameObject.layer == 9)
+        {
+            possiblePoints.Remove(collision.gameObject);
+            closestPoint();
+        }
     }
 }
