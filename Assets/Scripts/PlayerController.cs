@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     /*[SerializeField] */
 
     public Conveyor conveyor = null;
+    public int unlocks = 0;
 
     public GameObject spawn;
     bool teleport = true;

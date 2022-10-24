@@ -19,6 +19,11 @@ public class CheckpointSensor : MonoBehaviour
             UnityEngine.Debug.Log("reached a checkpoint");
             pc.spawn.transform.position = collision.gameObject.transform.position;
         }
+        if (collision.gameObject.CompareTag("Unlock"))
+        {
+            Destroy(collision.gameObject);
+            pc.unlocks++;
+        }
 
     }
 }

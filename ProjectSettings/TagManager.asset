@@ -18,6 +18,7 @@ TagManager:
   - Conveyor
   - End
   - Checkpoint
+  - Unlock
   layers:
   - Default
   - TransparentFX

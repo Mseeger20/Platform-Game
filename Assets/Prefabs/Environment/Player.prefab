@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 5708679595116544739}
   - component: {fileID: 71565819748217976}
   m_Layer: 11
-  m_Name: CheckpointSensor
+  m_Name: ItemSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4532619567910349187}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.3437, y: 2.2202, z: 8.449486}
+  m_LocalPosition: {x: 1.3437, y: 2.527, z: 8.449486}
   m_LocalScale: {x: 5.048824, y: 7.5103807, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -480,7 +480,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.27130157, y: -0.3377433}
+  m_Offset: {x: -0.27849248, y: -0.3377433}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -491,7 +491,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.19614351, y: 0.32451338}
+  m_Size: {x: 0.26805258, y: 0.32451338}
   m_EdgeRadius: 0
 --- !u!114 &71565819748217976
 MonoBehaviour:
@@ -702,6 +702,7 @@ MonoBehaviour:
   playerAnim: {fileID: 0}
   slideAllowHitDis: 1.5
   conveyor: {fileID: 0}
+  spawn: {fileID: 0}
 --- !u!114 &6434621513977658926
 MonoBehaviour:
   m_ObjectHideFlags: 0
