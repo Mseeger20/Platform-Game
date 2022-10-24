@@ -215,3 +215,5 @@ UserSettings/EditorUserSettings.asset
 UserSettings/EditorUserSettings.asset
 *.dwlt
 *.asset
+*.dwlt
+*.asset
