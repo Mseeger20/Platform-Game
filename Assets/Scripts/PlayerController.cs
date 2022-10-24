@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Diagnostics;
 using System;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -50,7 +52,10 @@ public class PlayerController : MonoBehaviour
     /*[SerializeField] */
 
     public Conveyor conveyor = null;
+
+    TMP_Text textonscreen;
     public int unlocks = 0;
+    int totalunlocks;
 
     public GameObject spawn;
     bool teleport = true;
@@ -83,6 +88,9 @@ public class PlayerController : MonoBehaviour
         stopwatch = new Stopwatch();
         stopwatch.Start();
 
+        totalunlocks = GameObject.Find("Unlockables").transform.childCount;
+        textonscreen = GameObject.Find("Texties").GetComponent<TMP_Text>();
+
         playerRB = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
         grappleModel.playerLine = GetComponent<LineRenderer>();
@@ -102,6 +110,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TimeSpan x = stopwatch.Elapsed;
+        string part = x.Seconds < 10 ? $"0{x.Seconds}" : $"{x.Seconds}";
+        timetotext = $"{x.Minutes}:" + part + $".{x.Milliseconds}";
+
+        textonscreen.text = "Time: " + timetotext + $"\nDeaths: {deaths}" + $"\nCollectibles: {unlocks}/{totalunlocks}";
+
         playerAnim.SetBool(groundHash, jumpModel.isGrounded);
         playerAnim.SetFloat(jumpVelHash, playerRB.velocity.y);
         generalState.Update(this);
@@ -312,9 +326,6 @@ public class PlayerController : MonoBehaviour
         {
             UnityEngine.Debug.Log("reached the end");
             stopwatch.Stop();
-            TimeSpan x = stopwatch.Elapsed;
-            string part = x.Seconds < 10 ? $"0{x.Seconds}" : $"{x.Seconds}";
-            timetotext = $"{x.Minutes}:" + part + $".{x.Milliseconds}";
         }
 
     }
