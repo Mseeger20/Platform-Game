@@ -7,12 +7,12 @@ using UnityEngine.InputSystem;
 public class SpawnGrapplePoint : MonoBehaviour
 {
     public GameObject grapplePoint;
-    Camera main;
-    Vector3 point;
+    public Camera main;
+    public Vector3 point;
 
     void Start()
     {
-        main = this.transform.GetChild(6).GetComponent<Camera>();
+        main = Camera.main;
     }
     
     void Update()
