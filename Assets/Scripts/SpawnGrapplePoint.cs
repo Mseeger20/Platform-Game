@@ -12,7 +12,7 @@ public class SpawnGrapplePoint : MonoBehaviour
 
     void Start()
     {
-        main = Camera.main;
+        main = this.transform.GetChild(6).GetComponent<Camera>();
     }
     
     void Update()
