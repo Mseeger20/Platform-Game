@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
     public Conveyor conveyor = null;
     DataTracker dt;
+    GameObject EndScreen;
 
     TMP_Text textonscreen;
     public int unlocks = 0;
@@ -77,6 +78,9 @@ public class PlayerController : MonoBehaviour
 
         stopwatch = new Stopwatch();
         stopwatch.Start();
+
+        EndScreen = GameObject.Find("EndScreen");
+        EndScreen.gameObject.SetActive(false);
 
         totalunlocks = GameObject.Find("Unlockables").transform.childCount;
         textonscreen = GameObject.Find("Texties").GetComponent<TMP_Text>();
@@ -325,8 +329,14 @@ public class PlayerController : MonoBehaviour
     public void LevelEnded()
     {
         stopwatch.Stop();
-        int x = SceneManager.GetActiveScene().buildIndex;
         dt.timetaken += stopwatch.Elapsed;
+        EndScreen.SetActive(true);
+
+        this.GetComponent<SpawnGrapplePoint>().enabled = false;
+        this.GetComponent<PlayerInput>().enabled = false;
+        ChangeState(moveState);
+
+        int x = SceneManager.GetActiveScene().buildIndex;
 
         if (dt.levelcomplete[x] == false)
         {
@@ -336,18 +346,22 @@ public class PlayerController : MonoBehaviour
         else if (unlocks < totalunlocks && dt.recordsno100[x] > stopwatch.Elapsed)
         {
             dt.recordsno100[x] = stopwatch.Elapsed;
+            EndScreen.transform.GetChild(1).GetComponent<TMP_Text>().text += "You beat your previous time!\n";
         }
         if (unlocks >= totalunlocks && dt.allcollectibles[x] == false)
         {
             dt.allcollectibles[x] = true;
             dt.records100[x] = stopwatch.Elapsed;
+            EndScreen.transform.GetChild(1).GetComponent<TMP_Text>().text += "You got all the collectibles!\n";
         }
         else if (unlocks >= totalunlocks && dt.records100[x] > stopwatch.Elapsed)
         {
+            EndScreen.transform.GetChild(1).GetComponent<TMP_Text>().text += "You got all the collectibles!\n";
+            EndScreen.transform.GetChild(1).GetComponent<TMP_Text>().text += "You beat your previous time!\n";
             dt.records100[x] = stopwatch.Elapsed;
+            if (dt.recordsno100[x] > stopwatch.Elapsed)
+                dt.recordsno100[x] = stopwatch.Elapsed;
         }
-
-        SceneManager.LoadScene(0);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -361,6 +375,7 @@ public class PlayerController : MonoBehaviour
         {
             teleport = true;
             deaths++;
+            dt.totaldeaths++;
         }
     }
 

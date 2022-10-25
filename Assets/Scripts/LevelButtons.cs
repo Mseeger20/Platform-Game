@@ -17,12 +17,6 @@ public class LevelButtons : MonoBehaviour
         return $"{x.Minutes}:" + part + $".{x.Milliseconds}";
     }
 
-    public void LoadScene(Button x)
-    {
-        SceneManager.LoadScene(x.transform.GetSiblingIndex());
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
         dt = FindObjectOfType<DataTracker>().GetComponent<DataTracker>();
