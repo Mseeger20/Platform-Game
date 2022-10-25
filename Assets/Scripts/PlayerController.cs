@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
     /*[SerializeField] */
 
     public Conveyor conveyor = null;
+    DataTracker dt;
 
     TMP_Text textonscreen;
     public int unlocks = 0;
@@ -104,6 +106,7 @@ public class PlayerController : MonoBehaviour
         jumpVelHash = Animator.StringToHash("jumpVelocity");
 
         groundMask = LayerMask.GetMask("Ground");
+        dt = FindObjectOfType<DataTracker>().GetComponent<DataTracker>();
         ChangeState(moveState);
     }
 
@@ -114,7 +117,9 @@ public class PlayerController : MonoBehaviour
         string part = x.Seconds < 10 ? $"0{x.Seconds}" : $"{x.Seconds}";
         timetotext = $"{x.Minutes}:" + part + $".{x.Milliseconds}";
 
-        textonscreen.text = "Time: " + timetotext + $"\nDeaths: {deaths}" + $"\nCollectibles: {unlocks}/{totalunlocks}";
+        textonscreen.text = "Time: " + timetotext +
+            $"\nDeaths: {deaths} / {dt.totaldeaths}" +
+            $"\nCollectibles: {unlocks} / {totalunlocks}";
 
         playerAnim.SetBool(groundHash, jumpModel.isGrounded);
         playerAnim.SetFloat(jumpVelHash, playerRB.velocity.y);
@@ -134,6 +139,13 @@ public class PlayerController : MonoBehaviour
 
         //Timers
         if (slideModel.slidingCancelTimer >= 0) slideModel.slidingCancelTimer -= Time.deltaTime;
+    }
+
+    public void GotCollectible()
+    {
+        unlocks++;
+        if (unlocks >= totalunlocks)
+            dt.allcollectibles[SceneManager.GetActiveScene().buildIndex] = true;
     }
 
     void OnMove(InputValue input)
@@ -197,7 +209,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     void OnDash()
     {
@@ -309,6 +320,12 @@ public class PlayerController : MonoBehaviour
         moveModel.hspeed = defaultspeed;
     }
 
+    public void LevelEnded()
+    {
+        dt.levelcomplete[SceneManager.GetActiveScene().buildIndex] = true;
+        stopwatch.Stop();
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Conveyor"))
@@ -321,13 +338,6 @@ public class PlayerController : MonoBehaviour
             teleport = true;
             deaths++;
         }
-
-        if (collision.gameObject.CompareTag("End"))
-        {
-            UnityEngine.Debug.Log("reached the end");
-            stopwatch.Stop();
-        }
-
     }
 
     void OnCollisionExit2D(Collision2D collision)

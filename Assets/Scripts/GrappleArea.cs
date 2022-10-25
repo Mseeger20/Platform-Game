@@ -6,12 +6,13 @@ public class GrappleArea : MonoBehaviour
 {
     [SerializeField] private List<GameObject> possiblePoints;
     [SerializeField] private List<GameObject> usedPoints;
-    [SerializeField] private GameObject targetPoint;
+    private GameObject targetPoint;
     public GameObject closestGrapplePoint;
     [SerializeField] private GameObject pl;
-    // Start is called before the first frame update
+
     void Start()
     {
+        targetPoint = GameObject.Find("GrappleTarget");
         pl = transform.parent.gameObject;
     }
 
