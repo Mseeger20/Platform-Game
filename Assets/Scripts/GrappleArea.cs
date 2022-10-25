@@ -6,12 +6,13 @@ public class GrappleArea : MonoBehaviour
 {
     [SerializeField] private List<GameObject> possiblePoints;
     [SerializeField] private List<GameObject> usedPoints;
-    [SerializeField] private GameObject targetPoint;
+    private GameObject targetPoint;
     public GameObject closestGrapplePoint;
     [SerializeField] private GameObject pl;
-    // Start is called before the first frame update
+
     void Start()
     {
+        targetPoint = GameObject.Find("GrappleTarget");
         pl = transform.parent.gameObject;
     }
 
@@ -34,7 +35,7 @@ public class GrappleArea : MonoBehaviour
 
     private void closestPoint()
     {
-        if(possiblePoints.Count > 0) 
+        if (possiblePoints.Count > 0)
         {
             closestGrapplePoint = possiblePoints[0];
             foreach (var point in possiblePoints)
@@ -52,7 +53,7 @@ public class GrappleArea : MonoBehaviour
         {
             closestGrapplePoint = null;
         }
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -6,10 +6,11 @@ using System.Diagnostics;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum state 
+    public enum state
     {
         move,
         jump,
@@ -46,12 +47,15 @@ public class PlayerController : MonoBehaviour
     private LayerMask groundMask;
 
     //Vars for development (should not be serializing after build)
-    /*[SerializeField] */private float groundHitDis = 0.28f;
-    /*[SerializeField] */private float slideHitDis = 0.1f;
+    /*[SerializeField] */
+    private float groundHitDis = 0.28f;
+    /*[SerializeField] */
+    private float slideHitDis = 0.1f;
     [SerializeField] private float slideAllowHitDis = 1f;
     /*[SerializeField] */
 
     public Conveyor conveyor = null;
+    DataTracker dt;
 
     TMP_Text textonscreen;
     public int unlocks = 0;
@@ -104,6 +108,7 @@ public class PlayerController : MonoBehaviour
         jumpVelHash = Animator.StringToHash("jumpVelocity");
 
         groundMask = LayerMask.GetMask("Ground");
+        dt = FindObjectOfType<DataTracker>().GetComponent<DataTracker>();
         ChangeState(moveState);
     }
 
@@ -114,7 +119,9 @@ public class PlayerController : MonoBehaviour
         string part = x.Seconds < 10 ? $"0{x.Seconds}" : $"{x.Seconds}";
         timetotext = $"{x.Minutes}:" + part + $".{x.Milliseconds}";
 
-        textonscreen.text = "Time: " + timetotext + $"\nDeaths: {deaths}" + $"\nCollectibles: {unlocks}/{totalunlocks}";
+        textonscreen.text = "Time: " + timetotext +
+            $"\nDeaths: {deaths} / {dt.totaldeaths}" +
+            $"\nCollectibles: {unlocks} / {totalunlocks}";
 
         playerAnim.SetBool(groundHash, jumpModel.isGrounded);
         playerAnim.SetFloat(jumpVelHash, playerRB.velocity.y);
@@ -136,6 +143,13 @@ public class PlayerController : MonoBehaviour
         if (slideModel.slidingCancelTimer >= 0) slideModel.slidingCancelTimer -= Time.deltaTime;
     }
 
+    public void GotCollectible()
+    {
+        unlocks++;
+        if (unlocks >= totalunlocks)
+            dt.allcollectibles[SceneManager.GetActiveScene().buildIndex] = true;
+    }
+
     void OnMove(InputValue input)
     {
         /*if (generalState != dashState)*/
@@ -152,7 +166,7 @@ public class PlayerController : MonoBehaviour
 
     void OnJump()
     {
-        if(generalState != jumpState && jumpModel.jumpCount > 0 && generalState != slideState && generalState != wallJumpState)
+        if (generalState != jumpState && jumpModel.jumpCount > 0 && generalState != slideState && generalState != wallJumpState)
         {
             gameObject.layer = 6;
             if (moveModel.VerticalMovement >= 0f)
@@ -160,11 +174,11 @@ public class PlayerController : MonoBehaviour
                 jumpModel.jumpCount -= 1;
                 playerRB.velocity = Vector2.up * jumpModel.jumpSpeed;
                 ChangeState(jumpState);
-                
+
             }
             else
             {
-                if(!jumpModel.isPlatform)
+                if (!jumpModel.isPlatform)
                 {
                     jumpModel.jumpCount -= 1;
                     playerRB.velocity = Vector2.up * jumpModel.jumpSpeed;
@@ -188,20 +202,19 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if(jumpModel.jumpCount > 0)
+            if (jumpModel.jumpCount > 0)
             {
                 playerRB.velocity = Vector2.up * jumpModel.jumpSpeed;
                 jumpModel.jumpCount -= 1;
                 playerAnim.SetTrigger(extraJumpTriggerHash);
-                
+
             }
         }
     }
 
-
     void OnDash()
     {
-        if(generalState != dashState && dashModel.allowDash && generalState != slideState)
+        if (generalState != dashState && dashModel.allowDash && generalState != slideState)
         {
             ChangeState(dashState);
         }
@@ -220,7 +233,7 @@ public class PlayerController : MonoBehaviour
         if (hitGround.collider == null && generalState != dashState && grappleModel.point.activeSelf)
         {
             GameObject target = grappleModel.GrappleSensor.closestGrapplePoint;
-            if(target != null) StartCoroutine(disableGrapplePoint(target));
+            if (target != null) StartCoroutine(disableGrapplePoint(target));
             ChangeState(grappleState);
         }
     }
@@ -239,10 +252,10 @@ public class PlayerController : MonoBehaviour
             if (hitJump.collider.CompareTag("Platform"))
                 jumpModel.isPlatform = true;
             dashModel.allowDash = true;
-            if(playerRB.gravityScale != slideModel.normalGravity)
+            if (playerRB.gravityScale != slideModel.normalGravity)
                 playerRB.gravityScale = slideModel.normalGravity;
             if (playerRB.velocity.y < 0f && generalState != dashState && generalState != moveState && generalState != grappleState)
-            { 
+            {
                 ChangeState(moveState);
                 jumpModel.jumpCount = jumpModel.jumpCountMax;
             }
@@ -309,6 +322,12 @@ public class PlayerController : MonoBehaviour
         moveModel.hspeed = defaultspeed;
     }
 
+    public void LevelEnded()
+    {
+        dt.levelcomplete[SceneManager.GetActiveScene().buildIndex] = true;
+        stopwatch.Stop();
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Conveyor"))
@@ -321,13 +340,6 @@ public class PlayerController : MonoBehaviour
             teleport = true;
             deaths++;
         }
-
-        if (collision.gameObject.CompareTag("End"))
-        {
-            UnityEngine.Debug.Log("reached the end");
-            stopwatch.Stop();
-        }
-
     }
 
     void OnCollisionExit2D(Collision2D collision)
