@@ -477,7 +477,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5327075970678048898}
   - component: {fileID: 5327075970678048903}
-  - component: {fileID: 5327075970678048900}
   - component: {fileID: 5327075970678048901}
   m_Layer: 0
   m_Name: SpawnCamera
@@ -544,14 +543,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5327075970678048900
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5327075970678048899}
-  m_Enabled: 1
 --- !u!114 &5327075970678048901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,7 +928,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possiblePoints: []
   usedPoints: []
-  targetPoint: {fileID: 0}
   closestGrapplePoint: {fileID: 0}
   pl: {fileID: 4071807902327232577}
 --- !u!61 &6915037763018449439

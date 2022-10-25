@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class SpawnGrapplePoint : MonoBehaviour
 {
     public GameObject grapplePoint;
-    public Camera main;
+    Camera main;
     public Vector3 point;
 
     void Start()
@@ -21,8 +21,6 @@ public class SpawnGrapplePoint : MonoBehaviour
         {
             point = main.ScreenToWorldPoint(Input.mousePosition);
             point.z = transform.position.z;
-            
-            //Debug.Log(point.ToString());
             Instantiate(grapplePoint, point, Quaternion.identity);
         }
     }

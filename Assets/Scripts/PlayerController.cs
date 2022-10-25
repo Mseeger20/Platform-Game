@@ -67,20 +67,6 @@ public class PlayerController : MonoBehaviour
 
     Stopwatch stopwatch;
     int deaths = 0;
-    string timetotext;
-
-    public void ChangeState(PlayerState newState)
-    {
-        if (generalState != null)
-        {
-            generalState.ExitState(this);
-        }
-        generalState = newState;
-        if (generalState != null)
-        {
-            generalState.EnterState(this);
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -112,14 +98,30 @@ public class PlayerController : MonoBehaviour
         ChangeState(moveState);
     }
 
+
+    public void ChangeState(PlayerState newState)
+    {
+        if (generalState != null)
+        {
+            generalState.ExitState(this);
+        }
+        generalState = newState;
+        if (generalState != null)
+        {
+            generalState.EnterState(this);
+        }
+    }
+
+    string ConvertTimeToString(TimeSpan x)
+    {
+        string part = x.Seconds < 10 ? $"0{x.Seconds}" : $"{x.Seconds}";
+        return $"{x.Minutes}:" + part + $".{x.Milliseconds}";
+    }
+
     // Update is called once per frame
     void Update()
     {
-        TimeSpan x = stopwatch.Elapsed;
-        string part = x.Seconds < 10 ? $"0{x.Seconds}" : $"{x.Seconds}";
-        timetotext = $"{x.Minutes}:" + part + $".{x.Milliseconds}";
-
-        textonscreen.text = "Time: " + timetotext +
+        textonscreen.text = "Time: " + ConvertTimeToString(stopwatch.Elapsed) +
             $"\nDeaths: {deaths} / {dt.totaldeaths}" +
             $"\nCollectibles: {unlocks} / {totalunlocks}";
 
@@ -146,8 +148,6 @@ public class PlayerController : MonoBehaviour
     public void GotCollectible()
     {
         unlocks++;
-        if (unlocks >= totalunlocks)
-            dt.allcollectibles[SceneManager.GetActiveScene().buildIndex] = true;
     }
 
     void OnMove(InputValue input)
@@ -324,8 +324,30 @@ public class PlayerController : MonoBehaviour
 
     public void LevelEnded()
     {
-        dt.levelcomplete[SceneManager.GetActiveScene().buildIndex] = true;
         stopwatch.Stop();
+        int x = SceneManager.GetActiveScene().buildIndex;
+        dt.timetaken += stopwatch.Elapsed;
+
+        if (dt.levelcomplete[x] == false)
+        {
+            dt.levelcomplete[x] = true;
+            dt.recordsno100[x] = stopwatch.Elapsed;
+        }
+        else if (unlocks < totalunlocks && dt.recordsno100[x] > stopwatch.Elapsed)
+        {
+            dt.recordsno100[x] = stopwatch.Elapsed;
+        }
+        if (unlocks >= totalunlocks && dt.allcollectibles[x] == false)
+        {
+            dt.allcollectibles[x] = true;
+            dt.records100[x] = stopwatch.Elapsed;
+        }
+        else if (unlocks >= totalunlocks && dt.records100[x] > stopwatch.Elapsed)
+        {
+            dt.records100[x] = stopwatch.Elapsed;
+        }
+
+        SceneManager.LoadScene(0);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
