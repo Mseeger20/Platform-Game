@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Borodar.FarlandSkies.LowPoly
 {
     [ExecuteInEditMode]
-    [HelpURL("http://www.borodar.com/stuff/farlandskies/lowpoly/docs/QuickStart_v2.5.1.pdf")]
+    [HelpURL("http://www.borodar.com/stuff/farlandskies/lowpoly/docs/QuickStart_v2.5.2.pdf")]
     public class SkyboxCycleManager : Singleton<SkyboxCycleManager>
     {
         [Tooltip("Day-night cycle duration from 0% to 100% (in seconds)")]

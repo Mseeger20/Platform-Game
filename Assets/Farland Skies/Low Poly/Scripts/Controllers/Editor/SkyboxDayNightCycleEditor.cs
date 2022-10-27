@@ -1,7 +1,6 @@
 ﻿using Borodar.FarlandSkies.Core.DotParams;
 using Borodar.FarlandSkies.Core.Editor;
-using Borodar.FarlandSkies.Core.Games.Collections;
-
+using Borodar.FarlandSkies.LowPoly.DotParams;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,25 +19,25 @@ namespace Borodar.FarlandSkies.LowPoly
         private const float TIME_WIDTH = BaseParamDrawer.TIME_FIELD_WIDHT + LIST_CONTROLS_PAD;
 
         // Sky
-        private SerializedProperty _skyDotParams;
+        private ParamsReorderableList _skyDotParamsList;
         // Stars
-        private SerializedProperty _starsDotParams;
+        private ParamsReorderableList _starsDotParamsList;
         // Sun
         private SerializedProperty _sunrise;
         private SerializedProperty _sunset;
         private SerializedProperty _sunAltitude;
         private SerializedProperty _sunLongitude;
         private SerializedProperty _sunOrbit;
-        private SerializedProperty _sunDotParams;
+        private ParamsReorderableList _sunDotParamsList;
         // Moon
         private SerializedProperty _moonrise;
         private SerializedProperty _moonset;
         private SerializedProperty _moonAltitude;
         private SerializedProperty _moonLongitude;
         private SerializedProperty _moonOrbit;
-        private SerializedProperty _moonDotParams;
+        private ParamsReorderableList _moonDotParamsList;
         // Clouds
-        private SerializedProperty _cloudsDotParams;
+        private ParamsReorderableList _cloudsDotParamsList;
         // General
         private SerializedProperty _framesInterval;
 
@@ -79,25 +78,31 @@ namespace Borodar.FarlandSkies.LowPoly
             _framesIntervalLabel = new GUIContent("Frames Interval", "Reduce the skybox day-night cycle update to run every \"n\" frames");
 
             // Sky
-            _skyDotParams = serializedObject.FindProperty("_skyParamsList").FindPropertyRelative("Params");
+            var skyDotParams = serializedObject.FindProperty("_skyParamsList").FindPropertyRelative("Params");
+            _skyDotParamsList = new ParamsReorderableList(skyDotParams, new SkyParamDrawer());
+
             // Stars
-            _starsDotParams = serializedObject.FindProperty("_starsParamsList").FindPropertyRelative("Params");
+            var starsDotParams = serializedObject.FindProperty("_starsParamsList").FindPropertyRelative("Params");
+            _starsDotParamsList = new ParamsReorderableList(starsDotParams, new StarsParamDrawer());
             // Sun
             _sunrise = serializedObject.FindProperty("_sunrise");
             _sunset = serializedObject.FindProperty("_sunset");
             _sunAltitude = serializedObject.FindProperty("_sunAltitude");
             _sunLongitude = serializedObject.FindProperty("_sunLongitude");
             _sunOrbit = serializedObject.FindProperty("_sunOrbit");
-            _sunDotParams = serializedObject.FindProperty("_sunParamsList").FindPropertyRelative("Params");
+            var sunDotParams = serializedObject.FindProperty("_sunParamsList").FindPropertyRelative("Params");
+            _sunDotParamsList = new ParamsReorderableList(sunDotParams, new CelestialParamDrawer());
             // Moon
             _moonrise = serializedObject.FindProperty("_moonrise");
             _moonset = serializedObject.FindProperty("_moonset");
             _moonAltitude = serializedObject.FindProperty("_moonAltitude");
             _moonLongitude = serializedObject.FindProperty("_moonLongitude");
             _moonOrbit = serializedObject.FindProperty("_moonOrbit");
-            _moonDotParams = serializedObject.FindProperty("_moonParamsList").FindPropertyRelative("Params");
+            var moonDotParams = serializedObject.FindProperty("_moonParamsList").FindPropertyRelative("Params");
+            _moonDotParamsList = new ParamsReorderableList(moonDotParams, new CelestialParamDrawer());
             // Clouds
-            _cloudsDotParams = serializedObject.FindProperty("_cloudsParamsList").FindPropertyRelative("Params");
+            var cloudsDotParams = serializedObject.FindProperty("_cloudsParamsList").FindPropertyRelative("Params");
+            _cloudsDotParamsList = new ParamsReorderableList(cloudsDotParams, new CloudsParamDrawer());
             // General
             _framesInterval = serializedObject.FindProperty("_framesInterval");
 
@@ -175,7 +180,7 @@ namespace Borodar.FarlandSkies.LowPoly
             if (_showSkyDotParams)
             {
                 SkyParamsHeader();
-                ReorderableListGUI.ListField(_skyDotParams);
+                _skyDotParamsList.DoLayoutList();
             }
         }
 
@@ -195,7 +200,7 @@ namespace Borodar.FarlandSkies.LowPoly
                 if (_showStarsDotParams)
                 {
                     StarsParamsHeader();
-                    ReorderableListGUI.ListField(_starsDotParams);
+                    _starsDotParamsList.DoLayoutList();
                 }
             }
             else
@@ -226,7 +231,7 @@ namespace Borodar.FarlandSkies.LowPoly
                 if (_showSunDotParams)
                 {
                     CelestialsParamsHeader();
-                    ReorderableListGUI.ListField(_sunDotParams);
+                    _sunDotParamsList.DoLayoutList();
                 }
             }
             else
@@ -257,7 +262,7 @@ namespace Borodar.FarlandSkies.LowPoly
                 if (_showMoonDotParams)
                 {
                     CelestialsParamsHeader();
-                    ReorderableListGUI.ListField(_moonDotParams);
+                    _moonDotParamsList.DoLayoutList();
                 }
             }
             else
@@ -282,7 +287,7 @@ namespace Borodar.FarlandSkies.LowPoly
                 if (_showCloudsDotParams)
                 {
                     CloudsParamsHeader();
-                    ReorderableListGUI.ListField(_cloudsDotParams);
+                    _cloudsDotParamsList.DoLayoutList();
                 }
             }
             else
@@ -293,105 +298,99 @@ namespace Borodar.FarlandSkies.LowPoly
 
         private void SkyParamsHeader()
         {
-            var position = GUILayoutUtility.GetRect(_guiContent, ReorderableListStyles.Instance.Title);
+            var position = GUILayoutUtility.GetRect(_guiContent, ParamsReorderableList.Title, GUILayout.ExpandWidth(true));
             if (Event.current.type == EventType.Repaint)
             {
-                var baseWidht = position.width;
+                var baseWidth = position.width;
                 // Time
                 position.width = TIME_WIDTH;
                 _guiContent.text = "Time";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
                 // Top Color
                 position.x += position.width;
-                position.width = (baseWidht - position.width) / 3f - LIST_CONTROLS_PAD + BaseParamDrawer.H_PAD;
+                position.width = Mathf.Round((baseWidth - position.width) / 3f);
                 _guiContent.text = "Top Color";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
                 // Middle Color
                 position.x += position.width;
                 _guiContent.text = "Middle Color";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
                 // Bottom Color
                 position.x += position.width;
-                position.width += LIST_CONTROLS_PAD + BaseParamDrawer.H_PAD;
                 _guiContent.text = "Bottom Color";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
             }
-            GUILayout.Space(-1);
         }
 
         private void StarsParamsHeader()
         {
-            var position = GUILayoutUtility.GetRect(_guiContent, ReorderableListStyles.Instance.Title);
+            var position = GUILayoutUtility.GetRect(_guiContent, ParamsReorderableList.Title, GUILayout.ExpandWidth(true));
             if (Event.current.type == EventType.Repaint)
             {
-                var baseWidht = position.width;
+                var baseWidth = position.width;
                 // Time
                 position.width = TIME_WIDTH;
                 _guiContent.text = "Time";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
                 // Tint Color
                 position.x += position.width;
-                position.width = baseWidht - position.width;
+                position.width = baseWidth - position.width;
                 _guiContent.text = "Tint Color";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
             }
-            GUILayout.Space(-1);
         }
 
         private void CelestialsParamsHeader()
         {
-            var position = GUILayoutUtility.GetRect(_guiContent, ReorderableListStyles.Instance.Title);
+            var position = GUILayoutUtility.GetRect(_guiContent, ParamsReorderableList.Title, GUILayout.ExpandWidth(true));
             if (Event.current.type == EventType.Repaint)
             {
-                var baseWidht = position.width;
+                var baseWidth = position.width;
                 var baseHeight = position.height;
                 // Time
                 position.width = TIME_WIDTH;
                 position.height *= 2f;
                 _guiContent.text = "Time";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
                 // Tint Color
                 position.x += position.width;
-                position.width = (baseWidht - position.width - 2f * LIST_CONTROLS_PAD) / 2f + BaseParamDrawer.H_PAD;
+                position.width = (baseWidth - position.width) / 2f;
                 position.height = baseHeight;
                 _guiContent.text = "Tint Color";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
                 // Light Color
                 position.x += position.width;
-                position.width += LIST_CONTROLS_PAD;
                 _guiContent.text = "Light Color";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
             }
             GUILayout.Space(-5f);
-            position = GUILayoutUtility.GetRect(_guiContent, ReorderableListStyles.Instance.Title);
+            position = GUILayoutUtility.GetRect(_guiContent, ParamsReorderableList.Title, GUILayout.ExpandWidth(true));
             if (Event.current.type == EventType.Repaint)
             {
-                // Light Intencity
+                // Light Intensity
                 position.x += TIME_WIDTH;
                 position.width -= TIME_WIDTH;
-                _guiContent.text = "Light Intencity";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                _guiContent.text = "Light Intensity";
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
             }
-            GUILayout.Space(-1);
         }
 
         private void CloudsParamsHeader()
         {
-            var position = GUILayoutUtility.GetRect(_guiContent, ReorderableListStyles.Instance.Title);
+            var position = GUILayoutUtility.GetRect(_guiContent, ParamsReorderableList.Title, GUILayout.ExpandWidth(true));
             if (Event.current.type == EventType.Repaint)
             {
-                var baseWidht = position.width;
+                var baseWidth = position.width;
                 // Time
                 position.width = TIME_WIDTH;
                 _guiContent.text = "Time";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
                 // Tint Color
                 position.x += position.width;
-                position.width = baseWidht - position.width;
+                position.width = baseWidth - position.width;
                 _guiContent.text = "Tint Color";
-                ReorderableListStyles.Instance.Title.Draw(position, _guiContent, false, false, false, false);
+                ParamsReorderableList.Title.Draw(position, _guiContent, false, false, false, false);
             }
-            GUILayout.Space(-1);
         }
     }
 }

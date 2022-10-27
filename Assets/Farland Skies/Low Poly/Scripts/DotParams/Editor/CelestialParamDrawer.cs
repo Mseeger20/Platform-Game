@@ -18,7 +18,7 @@ namespace Borodar.FarlandSkies.LowPoly.DotParams
             base.OnGUI(position, property, label);
             // Tint Color
             position.x += TIME_FIELD_WIDHT;
-            position.y += 1.5f * V_PAD;
+            position.y += V_PAD;
             var baseX = position.x;
             var baseWidth = position.width;
             position.width = (position.width - TIME_FIELD_WIDHT) / 2f - 0.5f * H_PAD;

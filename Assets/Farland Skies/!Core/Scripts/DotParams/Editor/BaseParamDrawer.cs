@@ -19,7 +19,7 @@ namespace Borodar.FarlandSkies.Core.DotParams
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             // Time
-            position.y += (GetPropertyHeight(property, label) - EditorGUIUtility.singleLineHeight) / 2;
+            position.y += V_PAD;
             position.width = TIME_VALUE_WIDHT;
             position.height = EditorGUIUtility.singleLineHeight;
             EditorGUI.PropertyField(position, property.FindPropertyRelative("Time"), GUIContent.none);

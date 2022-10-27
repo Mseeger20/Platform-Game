@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
+[UsedImplicitly]
+[SuppressMessage("ReSharper", "CheckNamespace")]
 public class LowPolyShaderGUI : ShaderGUI
 {
     // Sky
@@ -112,7 +115,6 @@ public class LowPolyShaderGUI : ShaderGUI
             materialEditor.ShaderProperty(_starsTwinklingSpeed, "Stars Twinkling Speed");
             materialEditor.ShaderProperty(_starsTex, "Stars Cubemap");
         }
-        EditorGUILayout.Space();
 
         // Sun
         EditorGUILayout.BeginHorizontal("Box");
@@ -128,7 +130,6 @@ public class LowPolyShaderGUI : ShaderGUI
             materialEditor.ShaderProperty(_sunTint, "Sun Tint");
             materialEditor.ShaderProperty(_sunTex, "Sun Texture");
         }
-        EditorGUILayout.Space();
 
         // Moon
         EditorGUILayout.BeginHorizontal("Box");
@@ -144,7 +145,6 @@ public class LowPolyShaderGUI : ShaderGUI
             materialEditor.ShaderProperty(_moonTint, "Moon Tint");
             materialEditor.ShaderProperty(_moonTex, "Moon Texture");
         }
-        EditorGUILayout.Space();
 
         // Clouds
         EditorGUILayout.BeginHorizontal("Box");
@@ -160,7 +160,6 @@ public class LowPolyShaderGUI : ShaderGUI
             materialEditor.ShaderProperty(_cloudsHeight, "Clouds Height");
             materialEditor.ShaderProperty(_cloudsTex, "Clouds Cubemap");
         }
-        EditorGUILayout.Space();
 
         // General
         EditorGUILayout.BeginVertical("Box");
@@ -168,8 +167,6 @@ public class LowPolyShaderGUI : ShaderGUI
         EditorGUILayout.EndVertical();
 
         materialEditor.ShaderProperty(_exposure, "Exposure");
-
-        EditorGUILayout.Space();
     }
 
     [SuppressMessage("ReSharper", "InvertIf")]
@@ -177,7 +174,8 @@ public class LowPolyShaderGUI : ShaderGUI
     {
         var keywordValue = Array.IndexOf(material.shaderKeywords, keyword) != -1;
         EditorGUI.BeginChangeCheck();
-        var checkboxValue = EditorGUILayout.Toggle(!keywordValue, GUILayout.Width(60f));
+        EditorGUILayout.Space(-75f);
+        var checkboxValue = EditorGUILayout.Toggle(!keywordValue);
         if (EditorGUI.EndChangeCheck()) 
         {
             if (checkboxValue)

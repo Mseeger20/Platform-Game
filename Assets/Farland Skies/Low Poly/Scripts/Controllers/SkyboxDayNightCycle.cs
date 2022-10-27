@@ -1,5 +1,4 @@
 ﻿#pragma warning disable 649
-using System.Diagnostics.CodeAnalysis;
 using Borodar.FarlandSkies.Core.Helpers;
 using Borodar.FarlandSkies.LowPoly.DotParams;
 using UnityEngine;
@@ -7,8 +6,7 @@ using UnityEngine;
 namespace Borodar.FarlandSkies.LowPoly
 {
     [ExecuteInEditMode]
-    [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
-    [HelpURL("http://www.borodar.com/stuff/farlandskies/lowpoly/docs/QuickStart_v2.5.1.pdf")]
+    [HelpURL("http://www.borodar.com/stuff/farlandskies/lowpoly/docs/QuickStart_v2.5.2.pdf")]
     public class SkyboxDayNightCycle : Singleton<SkyboxDayNightCycle>
     {
         // Sky
@@ -102,8 +100,8 @@ namespace Borodar.FarlandSkies.LowPoly
         /// Time of day, in percents (0-100).</summary>
         public float TimeOfDay
         {
-            get { return _timeOfDay; }
-            set { _timeOfDay = value % 100; }
+            get => _timeOfDay;
+            set => _timeOfDay = value % 100;
         }
 
         public SkyParam CurrentSkyParam { get; private set;  }

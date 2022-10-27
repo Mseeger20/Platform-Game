@@ -20,6 +20,7 @@ namespace Borodar.FarlandSkies.Core.Editor
 
         private const double DELAY_DAYS = 1;
 
+        private const string PACKAGE_URL = "https://assetstore.unity.com/packages/slug/";
         private const string GA_CAMPAIGN_PARAMS = "?utm_source=rate_me_dialog&utm_campaign=unity_editor";
 
         //---------------------------------------------------------------------
@@ -70,7 +71,7 @@ namespace Borodar.FarlandSkies.Core.Editor
 
                     if (GUILayout.Button(BUTTON_RATE, GUILayout.Width(100f), GUILayout.MinWidth(75f)))
                     {
-                        Application.OpenURL("com.unity3d.kharma:content/" + assetStoreID + GA_CAMPAIGN_PARAMS);
+                        Application.OpenURL($"{PACKAGE_URL}{assetStoreID}{GA_CAMPAIGN_PARAMS}");
                         EditorPrefs.SetBool(ratePrefKey, false);
                     }
                 }
